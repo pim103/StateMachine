@@ -1,5 +1,7 @@
 #pragma once
 
+#include "StateMachine.h";
+
 class Game {
 public:
 	Game();

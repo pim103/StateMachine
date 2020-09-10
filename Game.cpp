@@ -1,80 +1,77 @@
-#include "Transition.h";
-#include "State.h";
-#include "StateMachine.h";
 #include "Game.h"
 
 Game::Game() {}
 
 void Game::initStateMachine(StateMachine& stateMachine) {
-	State st1("Attaque Haute");
-	State st2("Attaque Basse");
-	State st3("Garde Haute");
-	State st4("Garde Basse");
-	State st5("Canaliser");
-	State st6("Neutre");
+	State st1("Attaque Haute", 1);
+	State st2("Attaque Basse", 2);
+	State st3("Garde Haute", 3);
+	State st4("Garde Basse", 4);
+	State st5("Canaliser", 5);
+	State st6("Neutre", 6);
 
-	vector<State> transitionState1;
-	transitionState1.push_back(st6);
-	transitionState1.push_back(st5);
-	transitionState1.push_back(st4);
+	vector<int> transitionState1;
+	transitionState1.push_back(st6.getId());
+	transitionState1.push_back(st5.getId());
+	transitionState1.push_back(st4.getId());
 
-	vector<State> transitionState2;
-	transitionState1.push_back(st6);
-	transitionState1.push_back(st5);
-	transitionState1.push_back(st3);
+	vector<int> transitionState2;
+	transitionState1.push_back(st6.getId());
+	transitionState1.push_back(st5.getId());
+	transitionState1.push_back(st3.getId());
 
-	vector<State> transitionState3;
-	transitionState1.push_back(st1);
+	vector<int> transitionState3;
+	transitionState1.push_back(st1.getId());
 
-	vector<State> transitionState4;
-	transitionState1.push_back(st2);
+	vector<int> transitionState4;
+	transitionState1.push_back(st2.getId());
 
-	vector<State> transitionState5;
-	transitionState1.push_back(st3);
-	transitionState1.push_back(st4);
-	transitionState1.push_back(st6);
+	vector<int> transitionState5;
+	transitionState1.push_back(st3.getId());
+	transitionState1.push_back(st4.getId());
+	transitionState1.push_back(st6.getId());
 
-	vector<State> transitionState6;
+	vector<int> transitionState6;
 
-	Transition t1(st1, transitionState1);
-	Transition t2(st2, transitionState2);
-	Transition t3(st3, transitionState3);
-	Transition t4(st4, transitionState4);
-	Transition t5(st5, transitionState5);
-	Transition t6(st6, transitionState6);
+	Transition t1(transitionState1);
+	Transition t2(transitionState2);
+	Transition t3(transitionState3);
+	Transition t4(transitionState4);
+	Transition t5(transitionState5);
+	Transition t6(transitionState6);
 
-	st1.addTransition(t2);
-	st1.addTransition(t3);
-	st1.addTransition(t4);
-	st1.addTransition(t5);
-	st1.addTransition(t6);
+	st1.addTransition(t2, st2);
+	st1.addTransition(t3, st3);
+	st1.addTransition(t4, st4);
+	st1.addTransition(t5, st5);
+	st1.addTransition(t6, st6);
 
-	st2.addTransition(t1);
-	st2.addTransition(t3);
-	st2.addTransition(t4);
-	st2.addTransition(t5);
-	st2.addTransition(t6);
+	st2.addTransition(t1, st1);
+	st2.addTransition(t3, st3);
+	st2.addTransition(t4, st4);
+	st2.addTransition(t5, st5);
+	st2.addTransition(t6, st6);
 
-	st3.addTransition(t2);
-	st3.addTransition(t4);
-	st3.addTransition(t4);
-	st3.addTransition(t5);
-	st3.addTransition(t6);
+	st3.addTransition(t2, st2);
+	st3.addTransition(t1, st1);
+	st3.addTransition(t4, st4);
+	st3.addTransition(t5, st5);
+	st3.addTransition(t6, st6);
 
-	st4.addTransition(t2);
-	st4.addTransition(t3);
-	st4.addTransition(t1);
-	st4.addTransition(t5);
-	st4.addTransition(t6);
+	st4.addTransition(t2, st2);
+	st4.addTransition(t3, st3);
+	st4.addTransition(t1, st1);
+	st4.addTransition(t5, st5);
+	st4.addTransition(t6, st6);
 
-	st5.addTransition(t2);
-	st5.addTransition(t1);
+	st5.addTransition(t2, st2);
+	st5.addTransition(t1, st1);
 
-	st6.addTransition(t2);
-	st6.addTransition(t3);
-	st6.addTransition(t4);
-	st6.addTransition(t5);
-	st6.addTransition(t1);
+	st6.addTransition(t2, st2);
+	st6.addTransition(t3, st3);
+	st6.addTransition(t4, st4);
+	st6.addTransition(t5, st5);
+	st6.addTransition(t1, st1);
 
 	stateMachine.setCurrentState(st6);
 }

@@ -1,14 +1,17 @@
 #pragma once
 
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
 class Transition {
 public:
-	Transition(State _nextState, vector<State> _possibleStateToChange);
-	bool canPassToNextStep(State otherStateConditions);
+	Transition(vector<int> _checkStateId);
 
-	State getNextState();
+	bool checkCondition(int stateId);
 
 private:
-	State nextState;
-
-	vector<State> possibleStateToChange;
+	vector<int> checkStateId;
 };

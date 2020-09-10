@@ -1,5 +1,3 @@
-#include "Transition.h"
-#include "State.h"
 #include "StateMachine.h"
 
 StateMachine::StateMachine(int _id) : id(_id) {}
@@ -16,20 +14,26 @@ State StateMachine::getCurrentState() {
 
 void StateMachine::processState(StateMachine otherStateMachine) {
 	State currentState = getCurrentState();
-	State otherCurrentState = otherStateMachine.getCurrentState();
+	int idOtherCurrentState = otherStateMachine.getCurrentState().getId();
 
 	vector<Transition> transitionList = currentState.getTransitions();
 	int transitionSize = transitionList.size();
 
-	vector<Transition> possibleTransition;
+	vector<int> possibleNextStateIndex;
 
 	for (int i = 0; i < transitionSize; ++i) {
-		if (transitionList[i].canPassToNextStep(otherCurrentState)) {
-			possibleTransition.push_back(transitionList[i]);
+		if (transitionList[i].checkCondition(idOtherCurrentState)) {
+			possibleNextStateIndex.push_back(i);
 		}
 	}
 
-	int possibleTransitionSize = possibleTransition.size();
-	State newCurrentState = possibleTransition[rand() % possibleTransitionSize].getNextState();
-	setCurrentState(newCurrentState);
+	int possibleTransitionSize = possibleNextStateIndex.size();
+
+	try {
+		State newCurrentState = currentState.getStateByIndexTransition(rand() % possibleTransitionSize);
+		setCurrentState(newCurrentState);
+	}
+	catch (exception e) {
+		cout << e.what() << endl;
+	}
 }

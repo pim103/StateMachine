@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Transition.h"
+#include "State.h"
+
 class StateMachine {
 public:
 	StateMachine(int _id);

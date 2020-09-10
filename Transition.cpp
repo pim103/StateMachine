@@ -1,21 +1,13 @@
-#include "State.h";
 #include "Transition.h"
 
-Transition::Transition(State _nextState, vector<State> _possibleState) : nextState(_nextState), possibleStateToChange(_possibleState) {}
+Transition::Transition(vector<int> _checkStateId) : checkStateId(_checkStateId) { }
 
-bool Transition::canPassToNextStep(State otherStateConditions) {
-	int possibleStateSize = possibleStateToChange.size();
-	string otherStateName = otherStateConditions.getStateName();
-
-	for (int i = 0; i < possibleStateSize; ++i) {
-		if (possibleStateToChange[i].getStateName() == otherStateName) {
+bool Transition::checkCondition(int stateId) {
+	for (int i = 0; i < checkStateId.size(); ++i) {
+		if (stateId == checkStateId[i]) {
 			return true;
 		}
 	}
-
+	
 	return false;
-}
-
-State Transition::getNextState() {
-	return nextState;
 }
