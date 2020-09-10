@@ -8,8 +8,14 @@ using namespace std;
 
 class Transition {
 public:
-	Transition(vector<int> _checkStateId);
+	virtual bool checkCondition(int stateId) {
+		return false;
+	}
+};
 
+class TransitionState: public Transition{
+public:
+	TransitionState(vector<int> _checkStateId);
 	bool checkCondition(int stateId);
 
 private:

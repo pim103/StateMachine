@@ -12,17 +12,15 @@ void State::setStateName(string newStateName) {
 	stateName = newStateName;
 }
 
-void State::addTransition(Transition newTransition, State nextState) {
-	transitionList.push_back(newTransition);
-	transitionNextState.push_back(nextState);
+void State::addTransition(Transition* newTransition, State* nextState) {
+	TransitionToState* tts = new TransitionToState(newTransition, nextState);
+	
+	transitionList.push_back(tts);
 }
 
-vector<Transition> State::getTransitions() {
+vector<TransitionToState*> State::getTransitions() {
+	cout << "size in obj : " << transitionList.size() << endl;
 	return transitionList;
-}
-
-State State::getStateByIndexTransition(int index) {
-	return transitionNextState[index];
 }
 
 int State::getId() {

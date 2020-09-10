@@ -8,6 +8,8 @@
 
 using namespace std;
 
+class TransitionToState;
+
 class State {
 public:
 	State();
@@ -16,14 +18,21 @@ public:
 	string getStateName();
 	void setStateName(string newStateName);
 
-	State getStateByIndexTransition(int index);
-	void addTransition(Transition newTransition, State nextState);
-	vector<Transition> getTransitions();
+	void addTransition(Transition* newTransition, State* nextState);
+	vector<TransitionToState*> getTransitions();
 	int getId();
 
 private:
 	int id;
 	string stateName;
-	vector<Transition> transitionList;
-	vector<State> transitionNextState;
+	vector<TransitionToState*> transitionList;
+};
+
+
+class TransitionToState {
+public:
+	TransitionToState(Transition* _transition, State* _state) : transition(_transition), state(_state) {}
+
+	Transition* transition;
+	State* state;
 };
