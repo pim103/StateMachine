@@ -11,17 +11,17 @@ void Game::initStateMachine(StateMachine& stateMachine) {
 	State* const st4 = new State("Buff Defense", GameState::BUFF_DEF);
 	State* const st5 = new State("Neutre", GameState::NEUTRAL);
 
-	const Transition* checkCdHeal = new TransitionCompareInt(0, TransitionType::CD_HEAL, TransitionComparison::EQUAL);
-	const Transition* transitionForHeal = new TransitionCompareInt(10, TransitionType::HP_SELF, TransitionComparison::EQUAL_INFERIOR, checkCdHeal);
+	Transition* const checkCdHeal = new TransitionCompareInt(0, TransitionType::CD_HEAL, TransitionComparison::EQUAL);
+	Transition* const transitionForHeal = new TransitionCompareInt(10, TransitionType::HP_SELF, TransitionComparison::EQUAL_INFERIOR, checkCdHeal);
 
-	const Transition* checkCdBuffAtt = new TransitionCompareInt(0, TransitionType::CD_BUFF_ATT, TransitionComparison::EQUAL);
-	const Transition* transitionForBuffAtt = new TransitionCompareInt(16, TransitionType::HP_ENEMY, TransitionComparison::EQUAL_SUPERIOR, checkCdBuffAtt);
-	const Transition* transitionForBuffAtt2 = new TransitionCompareInt(20, TransitionType::HP_SELF, TransitionComparison::EQUAL_SUPERIOR, transitionForBuffAtt);
+	Transition* const checkCdBuffAtt = new TransitionCompareInt(0, TransitionType::CD_BUFF_ATT, TransitionComparison::EQUAL);
+	Transition* const transitionForBuffAtt = new TransitionCompareInt(16, TransitionType::HP_ENEMY, TransitionComparison::EQUAL_SUPERIOR, checkCdBuffAtt);
+	Transition* const transitionForBuffAtt2 = new TransitionCompareInt(20, TransitionType::HP_SELF, TransitionComparison::EQUAL_SUPERIOR, transitionForBuffAtt);
 
-	const Transition* checkCdBuffDef = new TransitionCompareInt(0, TransitionType::CD_BUFF_DEF, TransitionComparison::EQUAL);
-	const Transition* transitionForBuffDef = new TransitionCompareInt(20, TransitionType::HP_ENEMY, TransitionComparison::EQUAL_SUPERIOR, checkCdBuffDef);
+	Transition* const checkCdBuffDef = new TransitionCompareInt(0, TransitionType::CD_BUFF_DEF, TransitionComparison::EQUAL);
+	Transition* const transitionForBuffDef = new TransitionCompareInt(20, TransitionType::HP_ENEMY, TransitionComparison::EQUAL_SUPERIOR, checkCdBuffDef);
 
-	const Transition* transitionAtt = new TransitionCompareInt(0, TransitionType::HP_ENEMY, TransitionComparison::EQUAL_SUPERIOR);
+	Transition* const transitionAtt = new TransitionCompareInt(0, TransitionType::HP_ENEMY, TransitionComparison::EQUAL_SUPERIOR);
 
 	st1->addTransition(transitionForHeal, st2);
 	st1->addTransition(transitionForBuffDef, st4);

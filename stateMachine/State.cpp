@@ -12,13 +12,13 @@ void State::setStateName(const string newStateName) {
 	stateName = newStateName;
 }
 
-void State::addTransition(const Transition* newTransition, const State* nextState) {
-	const TransitionToState* tts = new TransitionToState(newTransition, nextState);
+void State::addTransition(Transition* const newTransition, State* const nextState) {
+	TransitionToState* tts = new TransitionToState(newTransition, nextState);
 	
 	transitionList.push_back(tts);
 }
 
-vector<const TransitionToState* const> State::getTransitions() const {
+vector<TransitionToState*> State::getTransitions() const {
 	return transitionList;
 }
 

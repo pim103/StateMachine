@@ -1,5 +1,19 @@
 #pragma once
 
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+enum GameState {
+	ATT,
+	HEAL,
+	BUFF_ATT,
+	BUFF_DEF,
+	NEUTRAL
+};
+
 enum Element {
 	WIND,
 	FIRE,

@@ -18,21 +18,21 @@ public:
 	string getStateName() const;
 	void setStateName(const string newStateName);
 
-	void addTransition(const Transition* newTransition, const State* nextState);
-	vector<const TransitionToState* const> getTransitions() const;
+	void addTransition(Transition* const newTransition, State* const nextState);
+	vector<TransitionToState*> getTransitions() const;
 	GameState getGameState() const;
 
 private:
 	GameState gameState;
 	string stateName;
-	vector<const TransitionToState* const> transitionList;
+	vector<TransitionToState*> transitionList;
 };
 
 
 class TransitionToState {
 public:
-	TransitionToState(const Transition* _transition, const State* _state) : transition(_transition), state(_state) {}
+	TransitionToState(Transition* _transition, State* _state) : transition(_transition), state(_state) {}
 
-	const Transition* transition;
-	const State* state;
+	Transition* transition;
+	State* state;
 };

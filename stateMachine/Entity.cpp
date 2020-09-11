@@ -1,5 +1,4 @@
 #include "Entity.h"
-#include "Transition.h"
 
 Entity::Entity(int _id, int _hp, int _def, int _att, Element _element) : id(_id), hp(_hp), def(_def),	att(_att), element(_element) {
 	cdBuffAtt = 0;

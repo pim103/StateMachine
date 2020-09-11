@@ -1,12 +1,6 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-#include <vector>
-
 #include "Entity.h"
-
-using namespace std;
 
 enum TransitionType {
 	HP_SELF,
@@ -23,14 +17,6 @@ enum TransitionComparison {
 	SUPERIOR,
 	EQUAL_SUPERIOR,
 	EQUAL_INFERIOR
-};
-
-enum GameState {
-	ATT,
-	HEAL,
-	BUFF_ATT,
-	BUFF_DEF,
-	NEUTRAL
 };
 
 class Transition {
