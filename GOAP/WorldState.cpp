@@ -56,14 +56,6 @@ WorldState::WorldState() {
 	}
 }
 
-void WorldState::runWorld() {
-	int turnCount = 0;
-	while (turnCount < 100) {
-		
-		++turnCount;
-	}
-}
-
 Player* WorldState::getPlayer() {
 	return player;
 }

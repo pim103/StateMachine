@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include"Effect.h"
 
 using namespace std;
 
@@ -16,14 +17,14 @@ class Precondition
 {
 private:
 	PreconditionType preconType;
-	vector<int> actionIds;
 	int amount;
+	EffectType effectTypeToResolveThis;
+
 public:
 	Precondition();
-	Precondition(PreconditionType type, int nAmount, vector<int> ids);
-	vector<int> getActionIds();
+	Precondition(PreconditionType type, int nAmount, EffectType neffectTypeToResolveThis);
+	EffectType getEffectTypeToResolveThis();
 	PreconditionType getType();
 	int getAmount();
-	void setActionIds(vector<int> ids);
 };
 

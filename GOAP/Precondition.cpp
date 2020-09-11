@@ -4,22 +4,18 @@ Precondition::Precondition() {
 
 }
 
-Precondition::Precondition(PreconditionType type, int nAmount, vector<int> ids) {
+Precondition::Precondition(PreconditionType type, int nAmount, EffectType neffectTypeToResolveThis) {
 	preconType = type;
-	actionIds = ids;
 	amount = nAmount;
+	effectTypeToResolveThis = neffectTypeToResolveThis;
 }
 
-vector<int> Precondition::getActionIds() {
-	return actionIds;
+EffectType Precondition::getEffectTypeToResolveThis() {
+	return effectTypeToResolveThis;
 }
 
 PreconditionType Precondition::getType() {
 	return preconType;
-}
-
-void Precondition::setActionIds(vector<int> ids) {
-	actionIds = ids;
 }
 
 int Precondition::getAmount() {

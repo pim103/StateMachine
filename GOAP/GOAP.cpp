@@ -3,12 +3,10 @@
 
 #include <iostream>
 #include <vector>
-#include "GOAPSolver.h"
+#include "Game.h"
 
 int main()
 {
-	WorldState worldState = WorldState();
-	GOAPSolver goapSolver = GOAPSolver(worldState);
-
-	goapSolver.solve();
+	Game game = Game();
+	game.runGame();
 }
