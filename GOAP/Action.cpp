@@ -17,10 +17,6 @@ vector<Precondition> Action::getPreconditions() {
 Effect Action::getEffect() {
 	return effect;
 }
-
-int Action::getAmount() {
-	return amount;
-}
 int Action::getId() {
 	return id;
 }

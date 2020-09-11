@@ -18,7 +18,6 @@ class Action
 private:
 	Effect effect;
 	vector<Precondition> preconditions;
-	int amount;
 	int id;
 	int cost;
 public:
