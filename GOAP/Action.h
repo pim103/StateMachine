@@ -1,8 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-
-#include "GOAPSolver.h"
+#include "Precondition.h"
 
 using namespace std;
 
@@ -12,11 +11,7 @@ enum Effect {
 	MOVE_TOWARDS_ENEMY,
 	MOVE_TOWARDS_POTION
 };
-enum Precondition {
-	HAS_MANA,
-	HAS_POTION,
-	IS_IN_RANGE
-};
+
 
 class Action
 {
@@ -24,9 +19,17 @@ private:
 	Effect effect;
 	vector<Precondition> preconditions;
 	int amount;
+	int id;
+	int cost;
 public:
-	Action(Effect nEffect, vector<Precondition> nPreconditions, int nAmount);
+	Action();
+	Action(int nId, Effect nEffect, vector<Precondition> nPreconditions, int nAmount);
 	vector<Precondition> getPreconditions();
 	Effect getEffect();
+	int getAmount();
+	int getId();
+	int getCost();
+	void setCost(int nCost);
+	void executeAction();
 };
 

@@ -1,6 +1,10 @@
 #include "Action.h"
 
-Action::Action(Effect nEffect, vector<Precondition> nPreconditions, int nAmount) {
+Action::Action() {
+
+}
+Action::Action(int nId, Effect nEffect, vector<Precondition> nPreconditions, int nAmount) {
+	id = nId;
 	effect = nEffect;
 	preconditions = nPreconditions;
 	amount = nAmount;
@@ -12,4 +16,23 @@ vector<Precondition> Action::getPreconditions() {
 
 Effect Action::getEffect() {
 	return effect;
+}
+
+int Action::getAmount() {
+	return amount;
+}
+int Action::getId() {
+	return id;
+}
+
+int Action::getCost() {
+	return cost;
+}
+
+void Action::setCost(int nCost) {
+	cost = nCost;
+}
+
+void Action::executeAction() {
+
 }

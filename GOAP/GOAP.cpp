@@ -8,7 +8,7 @@
 int main()
 {
 	WorldState worldState = WorldState();
-	GOAPSolver goapSolver = goapSolver(worldState);
+	GOAPSolver goapSolver = GOAPSolver(worldState);
 
 	goapSolver.solve();
 }
