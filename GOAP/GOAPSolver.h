@@ -5,6 +5,12 @@
 #include "WorldState.h"
 #include "Action.h"
 
+class NodeParser {
+public:
+	int cost;
+	Action* action;
+	vector<NodeParser*> prevNodeParse;
+};
 
 class GOAPSolver
 {
@@ -16,13 +22,11 @@ private:
 public:
 	GOAPSolver();
 	GOAPSolver(WorldState nWorldState);
-	
-	//pair<int, vector<Action*>> getCostAction(Action* action);
+
+	vector<Action*> findActionToFillPrecondition(Precondition* const precondition);
+
+	NodeParser* getCostAction(Action* action);
 	vector<Precondition*> getUnvalidPreconditions(Action* action);
-	/*vector<Action*> findBestWay(Precondition* preconditions);
-	map<int, vector<Action*>> findWaysToExecute(Action* actionToResolve);*/
-	Precondition* getFirstUnvalidPrecondition(Action* action);
 	void solve();
 	Action* getActionById(int id);
 };
-

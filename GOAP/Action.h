@@ -5,8 +5,6 @@
 
 using namespace std;
 
-
-
 class Action
 {
 private:
@@ -14,13 +12,16 @@ private:
 	vector<Precondition*> preconditions;
 	int id;
 	int cost;
+	string description;
+
 public:
 	Action();
-	Action(int nId, Effect* nEffect, int _amount, vector<Precondition*> nPreconditions);
+	Action(int nId, Effect* nEffect, int _cost, vector<Precondition*> nPreconditions, string desc);
 	vector<Precondition*> getPreconditions();
 	Effect* getEffect();
 	int getId();
 	int getCost();
 	void setCost(int nCost);
+	string getDescription();
 };
 

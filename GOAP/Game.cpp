@@ -7,11 +7,15 @@ Game::Game() {
 void Game::runGame() {
 	vector<Enemy*> enemies = worldState.getEnemies();
 	vector<Action*> actionsSequence;
+
+	goapSolver.solve();
+	return;
 	while (enemies.size() > 0)
 	{
 		int actionsSequenceSize = actionsSequence.size();
 		bool shouldBreak = false;
 		for (int i = 0; i < actionsSequenceSize; ++i) {
+			/*
 			if (i < actionsSequenceSize - 1) {
 				while (goapSolver.getFirstUnvalidPrecondition(actionsSequence[i + 1]) != nullptr) {
 					if (goapSolver.getFirstUnvalidPrecondition(actionsSequence[i]) == nullptr) {
@@ -37,6 +41,7 @@ void Game::runGame() {
 					break;
 				}
 			}
+			*/
 		}
 	}
 }

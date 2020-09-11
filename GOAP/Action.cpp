@@ -4,10 +4,12 @@ Action::Action() {
 
 }
 
-Action::Action(int nId, Effect* nEffect, int _amount, vector<Precondition*> nPreconditions) {
+Action::Action(int nId, Effect* nEffect, int _cost, vector<Precondition*> nPreconditions, string desc) {
 	id = nId;
 	effect = nEffect;
+	cost = _cost;
 	preconditions = nPreconditions;
+	description = desc;
 }
 
 vector<Precondition*> Action::getPreconditions() {
@@ -28,4 +30,7 @@ int Action::getCost() {
 
 void Action::setCost(int nCost) {
 	cost = nCost;
+}
+string Action::getDescription() {
+	return description;
 }
