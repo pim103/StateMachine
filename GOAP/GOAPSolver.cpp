@@ -26,8 +26,6 @@ GOAPSolver::GOAPSolver(WorldState nWorldState) {
 			cout << "dead";
 		}
 	});
-
-	attackDamages->execute();
 	
 	Effect* spellDamages = new Effect(EffectType::DO_DAMAGES, 4, [=]() {
 		vector<Enemy*> enemies = worldState.getEnemies();
@@ -352,7 +350,6 @@ vector<Precondition*> GOAPSolver::getUnvalidPreconditions(Action* action) {
 			}
 			break;
 		case HAS_POTION:
-			cout << player->getPotions() << " " << preconditionsList[i]->getAmount() << endl;
 			if (player->getPotions() < preconditionsList[i]->getAmount()) {
 				preconditionsToFill.push_back(preconditionsList[i]);
 			}
