@@ -97,7 +97,7 @@ void Game::processGame() {
 			entities[1]->updateEntity();
 		}
 
-		cout << "\tJoueur " << currentPlayer << " joue" << endl;
+		cout << "\tJoueur " << currentPlayer + 1 << " joue" << endl;
 		stateMachines[currentPlayer]->processState(entities[currentPlayer], entities[otherPlayer]);
 
 		GameState currentState = stateMachines[currentPlayer]->getCurrentState()->getGameState();
