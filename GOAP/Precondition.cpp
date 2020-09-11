@@ -10,7 +10,7 @@ Precondition::Precondition(PreconditionType type, int nAmount, vector<int> ids) 
 	amount = nAmount;
 }
 
-vector<int> Precondition::getActionId() {
+vector<int> Precondition::getActionIds() {
 	return actionIds;
 }
 

@@ -5,6 +5,15 @@ Player::Player() {
 	currentMana = 20;
 	pos.push_back(0);
 	pos.push_back(0);
+	potions = 1;
+}
+
+void Player::setPotions(int _potions) {
+	potions = _potions;
+}
+
+int Player::getPotions() {
+	return potions;
 }
 
 int Player::getMana() {

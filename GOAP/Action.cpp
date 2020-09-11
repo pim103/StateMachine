@@ -4,9 +4,10 @@ Action::Action() {
 
 }
 
-Action::Action(int nId, Effect nEffect, vector<Precondition*> nPreconditions) {
+Action::Action(int nId, Effect nEffect, int _amount, vector<Precondition*> nPreconditions) {
 	id = nId;
 	effect = nEffect;
+	amount = _amount;
 	preconditions = nPreconditions;
 }
 

@@ -10,7 +10,11 @@ private:
 	Action* currentGoal;
 public:
 	GOAPSolver(WorldState nWorldState);
-	vector<Precondition*> checkPreconditions(Action* action);
+	
+	int getCostAction(Action* action);
+	vector<Precondition*> getUnvalidPreconditions(Action* action);
+	Precondition* getFirstUnvalidPrecondition(Action* action);
 	void solve();
+	Action* getActionById(int id);
 };
 
