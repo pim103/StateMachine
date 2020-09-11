@@ -1,6 +1,11 @@
 #pragma once
+
+#include <map>
+
 #include "WorldState.h"
 #include "Action.h"
+
+
 class GOAPSolver
 {
 private:
@@ -11,8 +16,10 @@ private:
 public:
 	GOAPSolver(WorldState nWorldState);
 	
-	int getCostAction(Action* action);
+	pair<int, vector<Action*>> getCostAction(Action* action);
 	vector<Precondition*> getUnvalidPreconditions(Action* action);
+	vector<Action*> findBestWay(Precondition* preconditions);
+	map<int, vector<Action*>> findWaysToExecute(Action* actionToResolve);
 	Precondition* getFirstUnvalidPrecondition(Action* action);
 	void solve();
 	Action* getActionById(int id);

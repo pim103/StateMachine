@@ -99,8 +99,8 @@ void GOAPSolver::solve() {
 	}
 }
 
-int GOAPSolver::getCostAction(Action* action) {
-	int cost = 1;
+vector<Action*> GOAPSolver::getCostAction(Action* action) {
+	vector<Action*> actions;
 
 	if (action != nullptr) {
 		vector<Precondition*> unvalidPreconditions = getUnvalidPreconditions(action);
@@ -111,28 +111,55 @@ int GOAPSolver::getCostAction(Action* action) {
 			for (int i = 0; i < unvalidPreconditionsSize; ++i) {
 				vector<int> actionIds = unvalidPreconditions[i]->getActionIds();
 				int actionIdsSize = actionIds.size();
-
-				int currentActionCost = 0;
-				int savedCurrentActionCost = 100000;
-
+				vector<vector<Action*>> subActionsPossible;
+				
 				// Recupere le cout de l'action remplissant la precondition la moins chère
 				for (int j = 0; j < actionIdsSize; ++j) {
 					Action* action = getActionById(actionIds[j]);
-					currentActionCost = getCostAction(action);
-
-					if (savedCurrentActionCost > currentActionCost) {
-						savedCurrentActionCost = currentActionCost;
-					}
+					subActionsPossible.push_back(getCostAction(action));
 				}
+			}
+		}
 
-				cost += savedCurrentActionCost;
+		actions.push_back(action);
+	}
+
+	return actions;
+}
+
+vector<Action*> GOAPSolver::findBestWay(Precondition* precondition) {
+	vector<Action*> actions;
+	vector<int> actionIds = precondition->getActionIds();
+	int actionIdsSize = actionIds.size();
+
+	// Recupere le cout de l'action remplissant la precondition la moins chère
+	for (int j = 0; j < actionIdsSize; ++j) {
+
+	}
+
+	return ;
+}
+
+map<int, vector<Action*>> GOAPSolver::findWaysToExecute(Action* actionToResolve) {
+	// int : index of unvalid preconditions | vector<Actions*> best way to execute
+	map<int, vector<Action*>> ways;
+
+	if (actionToResolve != nullptr) {
+		vector<Precondition*> unvalidPreconditions = getUnvalidPreconditions(actionToResolve);
+		int unvalidPreconditionsSize = unvalidPreconditions.size();
+
+		if (unvalidPreconditionsSize > 0) {
+			// Parcours les precondition necessaire à l'action
+			for (int i = 0; i < unvalidPreconditionsSize; ++i) {
+				vector<Action*> actionsToMake = findBestWay(unvalidPreconditions[i]);
+
+				ways[i] = actionsToMake;
 			}
 		}
 	}
 
-	return cost;
+	return ways;
 }
-
 
 vector<Precondition*> GOAPSolver::getUnvalidPreconditions(Action* action) {
 	cout << " Action Id " << action->getId() << endl;
