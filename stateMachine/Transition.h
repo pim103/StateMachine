@@ -46,6 +46,8 @@ class TransitionCompareInt : public Transition {
 public:
 	TransitionCompareInt(int _valueToCompare, TransitionType _transitionType, TransitionComparison _transitionComparison);
 	TransitionCompareInt(int _valueToCompare, TransitionType _transitionType, TransitionComparison _transitionComparison, const Transition* _otherCheckTransition);
+	~TransitionCompareInt();
+	
 	bool checkCondition(const Entity* selfEntity, const Entity* otherEntity) const;
 
 	int getCorrectArgument(const Entity* selfEntity, const Entity* otherEntity) const;

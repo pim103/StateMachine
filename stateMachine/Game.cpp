@@ -11,6 +11,12 @@ void Game::initStateMachine(StateMachine& stateMachine) {
 	State* const st4 = new State("Buff Defense", GameState::BUFF_DEF);
 	State* const st5 = new State("Neutre", GameState::NEUTRAL);
 
+	stateList.push_back(st1);
+	stateList.push_back(st2);
+	stateList.push_back(st3);
+	stateList.push_back(st4);
+	stateList.push_back(st5);
+
 	Transition* const checkCdHeal = new TransitionCompareInt(0, TransitionType::CD_HEAL, TransitionComparison::EQUAL);
 	Transition* const transitionForHeal = new TransitionCompareInt(10, TransitionType::HP_SELF, TransitionComparison::EQUAL_INFERIOR, checkCdHeal);
 
@@ -22,6 +28,15 @@ void Game::initStateMachine(StateMachine& stateMachine) {
 	Transition* const transitionForBuffDef = new TransitionCompareInt(20, TransitionType::HP_ENEMY, TransitionComparison::EQUAL_SUPERIOR, checkCdBuffDef);
 
 	Transition* const transitionAtt = new TransitionCompareInt(0, TransitionType::HP_ENEMY, TransitionComparison::EQUAL_SUPERIOR);
+
+	transitionList.push_back(checkCdHeal);
+	transitionList.push_back(transitionForHeal);
+	transitionList.push_back(checkCdBuffAtt);
+	transitionList.push_back(transitionForBuffAtt);
+	transitionList.push_back(transitionForBuffAtt2);
+	transitionList.push_back(checkCdBuffDef);
+	transitionList.push_back(transitionForBuffDef);
+	transitionList.push_back(transitionAtt);
 
 	st1->addTransition(transitionForHeal, st2);
 	st1->addTransition(transitionForBuffDef, st4);
@@ -52,11 +67,11 @@ void Game::initStateMachine(StateMachine& stateMachine) {
 }
 
 void Game::startGame() {
-	StateMachine* stm1 = new StateMachine(1);
-	StateMachine* stm2 = new StateMachine(2);
+	stm1 = new StateMachine(1);
+	stm2 = new StateMachine(2);
 
-	Entity* entity1 = new Entity(1, 100, 0, 8, Element::FIRE);
-	Entity* entity2 = new Entity(2, 150, 0, 8, Element::WATER);
+	entity1 = new Entity(1, 100, 0, 8, Element::FIRE);
+	entity2 = new Entity(2, 150, 0, 8, Element::WATER);
 
 	initStateMachine(*stm1);
 	initStateMachine(*stm2);
@@ -110,5 +125,19 @@ void Game::processGame(Entity* const entity1, Entity* const entity2, StateMachin
 }
 
 void Game::endGame() {
+	int transitionSize = transitionList.size();
+	int stateSize = stateList.size();
 
+	for (int i = transitionSize - 1; i >= 0; --i) {
+		delete transitionList[i];
+	}
+
+	for (int i = stateSize - 1; i >= 0; --i) {
+		delete stateList[i];
+	}
+
+	delete stm1;
+	delete stm2;
+	delete entity1;
+	delete entity2;
 }

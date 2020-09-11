@@ -4,6 +4,14 @@ State::State() {}
 
 State::State(const string _stateName, const GameState _gameState): stateName(_stateName), gameState(_gameState) {}
 
+State::~State() {
+	int transitionToStateSize = transitionList.size();
+
+	for (int i = 0; i < transitionToStateSize; ++i) {
+		delete transitionList[i];
+	}
+}
+
 string State::getStateName() const {
 	return stateName;
 }

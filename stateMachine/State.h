@@ -14,6 +14,7 @@ class State {
 public:
 	State();
 	State(const string _stateName, const GameState _id);
+	~State();
 
 	string getStateName() const;
 	void setStateName(const string newStateName);

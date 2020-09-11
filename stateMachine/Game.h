@@ -12,5 +12,10 @@ public:
 	void endGame();
 
 private:
-
+	vector<Transition*> transitionList;
+	vector<State*> stateList;
+	StateMachine* stm1;
+	StateMachine* stm2;
+	Entity* entity1;
+	Entity* entity2;
 };
