@@ -2,18 +2,19 @@
 
 WorldState::WorldState() {
 	player = new Player();
+	int x, y;
+
 	for (int i = 0; i < 3; ++i) {
 		bool positionAlreadyExist;
-		int x, y;
 
 		do {
 			positionAlreadyExist = false;
-			int x = rand() % 10;
-			int y = rand() % 10;
+			x = rand() % 10;
+			y = rand() % 10;
 
 			int enemiesSize = enemies.size();
 			for (int j = 0; j < enemiesSize; ++j) {
-				vector<int> pos = enemies[i]->getPos();
+				vector<int> pos = enemies[j]->getPos();
 
 				if (pos[0] == x && pos[1] == y) {
 					positionAlreadyExist = true;
@@ -23,19 +24,18 @@ WorldState::WorldState() {
 
 		enemies.push_back(new Enemy(x, y));
 	}
-
+	
 	for (int i = 0; i < 5; ++i) {
 		bool positionAlreadyExist;
-		int x, y;
 
 		do {
 			positionAlreadyExist = false;
-			int x = rand() % 10;
-			int y = rand() % 10;
+			x = rand() % 10;
+			y = rand() % 10;
 
 			int enemiesSize = enemies.size();
 			for (int j = 0; j < enemiesSize; ++j) {
-				vector<int> pos = enemies[i]->getPos();
+				vector<int> pos = enemies[j]->getPos();
 
 				if (pos[0] == x && pos[1] == y) {
 					positionAlreadyExist = true;
@@ -44,7 +44,7 @@ WorldState::WorldState() {
 
 			int potionsSize = potions.size();
 			for (int j = 0; j < potionsSize; ++j) {
-				vector<int> pos = potions[i]->getPos();
+				vector<int> pos = potions[j]->getPos();
 
 				if (pos[0] == x && pos[1] == y) {
 					positionAlreadyExist = true;
@@ -74,4 +74,4 @@ vector<Enemy*> WorldState::getEnemies() {
 
 vector<Potion*> WorldState::getPotions() {
 	return potions;
-} 
+}
