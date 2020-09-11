@@ -67,59 +67,53 @@ void Game::initStateMachine(StateMachine& stateMachine) {
 }
 
 void Game::startGame() {
-	stm1 = new StateMachine(1);
-	stm2 = new StateMachine(2);
+	stateMachines.push_back(new StateMachine(1));
+	stateMachines.push_back(new StateMachine(2));
 
-	entity1 = new Entity(1, 100, 0, 8, Element::FIRE);
-	entity2 = new Entity(2, 150, 0, 8, Element::WATER);
+	entities.push_back(new Entity(1, 100, 0, 8, Element::FIRE));
+	entities.push_back(new Entity(2, 150, 0, 8, Element::WATER));
 
-	initStateMachine(*stm1);
-	initStateMachine(*stm2);
+	initStateMachine(*stateMachines[0]);
+	initStateMachine(*stateMachines[1]);
 
-	processGame(entity1, entity2, stm1, stm2);
+	processGame();
 }
 
-void Game::processGame(Entity* const entity1, Entity* const entity2, StateMachine* const stm1, StateMachine* const stm2) {
+void Game::processGame() {
 	bool isEnding = false;
 	
 	int currentPlayer = 0;
+	int otherPlayer = 1;
 	int nbLoop = 0;
 
 	while (!isEnding) {
+		currentPlayer = nbLoop % 2;
+		otherPlayer = currentPlayer == 0 ? 1 : 0;
+		++nbLoop;
 
 		if (currentPlayer == 0) {
-			++nbLoop;
 			cout << "====================== Tour : " << nbLoop << " ======================" << endl;
-			entity1->updateEntity();
-			entity2->updateEntity();
-
-			cout << "\tJoueur 1 joue" << endl;
-			currentPlayer = 1;
-
-			stm1->processState(entity1, entity2);
-			GameState currentState = stm1->getCurrentState()->getGameState();
-
-			entity1->applyState(entity2, currentState);
-		}
-		else if (currentPlayer == 1) {
-			cout << "\tJoueur 2 joue" << endl;
-			currentPlayer = 0;
-
-			stm2->processState(entity2, entity1);
-			GameState currentState = stm2->getCurrentState()->getGameState();
-
-			entity2->applyState(entity1, currentState);
-
-			cout << "\tJoueur 1 hp : " << entity1->getHp() << " Joueur 2 hp : " << entity2->getHp() << endl;
+			entities[0]->updateEntity();
+			entities[1]->updateEntity();
 		}
 
-		if (nbLoop > 50 || entity1->getHp() <= 0 || entity2->getHp() <= 0) {
+		cout << "\tJoueur " << currentPlayer << " joue" << endl;
+		stateMachines[currentPlayer]->processState(entities[currentPlayer], entities[otherPlayer]);
+
+		GameState currentState = stateMachines[currentPlayer]->getCurrentState()->getGameState();
+		entities[currentPlayer]->applyState(entities[otherPlayer], currentState);
+
+		if (currentPlayer == 1) {
+			cout << "\tJoueur 1 hp : " << entities[0]->getHp() << " Joueur 2 hp : " << entities[1]->getHp() << endl;
+		}
+
+		if (nbLoop > 50 || entities[0]->getHp() <= 0 || entities[1]->getHp() <= 0) {
 			isEnding = true;
 		}
 	}
 
 	cout << "====================== Game terminee ======================" << endl;
-	cout << "Joueur 1 hp : " << entity1->getHp() << " Joueur 2 hp : " << entity2->getHp() << endl;
+	cout << "Joueur 1 hp : " << entities[0]->getHp() << " Joueur 2 hp : " << entities[1]->getHp() << endl;
 
 	endGame();
 }
@@ -127,6 +121,8 @@ void Game::processGame(Entity* const entity1, Entity* const entity2, StateMachin
 void Game::endGame() {
 	int transitionSize = transitionList.size();
 	int stateSize = stateList.size();
+	int stmSize = stateMachines.size();
+	int entitySize = entities.size();
 
 	for (int i = transitionSize - 1; i >= 0; --i) {
 		delete transitionList[i];
@@ -136,8 +132,11 @@ void Game::endGame() {
 		delete stateList[i];
 	}
 
-	delete stm1;
-	delete stm2;
-	delete entity1;
-	delete entity2;
+	for (int i = stmSize - 1; i >= 0; --i) {
+		delete stateMachines[i];
+	}
+
+	for (int i = entitySize - 1; i >= 0; --i) {
+		delete entities[i];
+	}
 }
