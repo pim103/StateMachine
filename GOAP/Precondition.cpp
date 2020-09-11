@@ -4,7 +4,7 @@ Precondition::Precondition() {
 
 }
 
-Precondition::Precondition(preconditionType type, int id, int nAmount) {
+Precondition::Precondition(PreconditionType type, int id, int nAmount) {
 	preconType = type;
 	actionId = id;
 	amount = nAmount;
@@ -13,7 +13,7 @@ Precondition::Precondition(preconditionType type, int id, int nAmount) {
 int Precondition::getActionId() {
 	return actionId;
 }
-preconditionType Precondition::getType() {
+PreconditionType Precondition::getType() {
 	return preconType;
 }
 void Precondition::setActionId(int id) {

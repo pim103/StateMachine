@@ -40,7 +40,7 @@ vector<Precondition> GOAPSolver::checkPreconditions(Action action) {
 			if (effect == Effect::DO_DAMAGES) {
 				int enemiesSize = enemies.size();
 				for (int j = 0; j < enemiesSize; ++j) {
-					if (sqrt(pow((player.getPos()[0] - enemies[i].getPos()[0]), 2) + pow((player.getPos()[1] - enemies[i].getPos()[1]), 2)) > action.getAmount()) {
+					if (sqrt(pow((player.getPos()[0] - enemies[i].getPos()[0]), 2) + pow((player.getPos()[1] - enemies[i].getPos()[1]), 2)) > preconditionsList[i].getAmount()) {
 						preconditionsToFill.push_back(preconditionsList[i]);
 					}
 				}
@@ -48,7 +48,7 @@ vector<Precondition> GOAPSolver::checkPreconditions(Action action) {
 			else {
 				int potionsSize = potions.size();
 				for (int j = 0; j < potionsSize; ++j) {
-					if (sqrt(pow((player.getPos()[0] - potions[i].getPos()[0]), 2) + pow((player.getPos()[1] - potions[i].getPos()[1]), 2)) > action.getAmount()) {
+					if (sqrt(pow((player.getPos()[0] - potions[i].getPos()[0]), 2) + pow((player.getPos()[1] - potions[i].getPos()[1]), 2)) > preconditionsList[i].getAmount()) {
 						preconditionsToFill.push_back(preconditionsList[i]);
 					}
 				}
@@ -56,12 +56,12 @@ vector<Precondition> GOAPSolver::checkPreconditions(Action action) {
 			
 			break;
 		case HAS_MANA:
-			if (player.getMana() < action.getAmount()) {
+			if (player.getMana() < preconditionsList[i].getAmount()) {
 				preconditionsToFill.push_back(preconditionsList[i]);
 			}
 			break;
 		case HAS_POTION:
-			if (potions.size() < action.getAmount()) {
+			if (potions.size() < preconditionsList[i].getAmount()) {
 				preconditionsToFill.push_back(preconditionsList[i]);
 			}
 			break;

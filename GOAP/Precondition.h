@@ -1,6 +1,6 @@
 #pragma once
 
-enum preconditionType {
+enum PreconditionType {
 	HAS_MANA,
 	HAS_POTION,
 	IS_IN_RANGE
@@ -9,14 +9,14 @@ enum preconditionType {
 class Precondition
 {
 private:
-	preconditionType preconType;
+	PreconditionType preconType;
 	int actionId;
 	int amount;
 public:
 	Precondition();
-	Precondition(preconditionType type, int id, int nAmount);
+	Precondition(PreconditionType type, int id, int nAmount);
 	int getActionId();
-	preconditionType getType();
+	PreconditionType getType();
 	int getAmount();
 	void setActionId(int id);
 };
