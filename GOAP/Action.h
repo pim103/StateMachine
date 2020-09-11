@@ -12,20 +12,18 @@ enum Effect {
 	MOVE_TOWARDS_POTION
 };
 
-
 class Action
 {
 private:
 	Effect effect;
-	vector<Precondition> preconditions;
+	vector<Precondition*> preconditions;
 	int id;
 	int cost;
 public:
 	Action();
-	Action(int nId, Effect nEffect, vector<Precondition> nPreconditions, int nAmount);
-	vector<Precondition> getPreconditions();
+	Action(int nId, Effect nEffect, vector<Precondition*> nPreconditions);
+	vector<Precondition*> getPreconditions();
 	Effect getEffect();
-	int getAmount();
 	int getId();
 	int getCost();
 	void setCost(int nCost);

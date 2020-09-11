@@ -1,10 +1,9 @@
 #include "WorldState.h"
 
-
 WorldState::WorldState() {
-	player = Player();
+	player = new Player();
 	for (int i = 0; i < 3; ++i) {
-		enemies.push_back(Enemy(rand() % 10, rand() % 10));
+		enemies.push_back(new Enemy(rand() % 10, rand() % 10));
 		/*int enemiesSize = Enemies.size();
 		for (int j = 0; j < enemiesSize; ++j) {
 			if (Enemies[i].getPos() == Enemies[enemiesSize - 1].getPos()) {
@@ -13,7 +12,7 @@ WorldState::WorldState() {
 		}*/
 	}
 	for (int i = 0; i < 5; ++i) {
-		potions.push_back(Potion(rand() % 10, rand() % 10));
+		potions.push_back(new Potion(rand() % 10, rand() % 10));
 	}
 }
 
@@ -25,14 +24,14 @@ void WorldState::runWorld() {
 	}
 }
 
-Player WorldState::getPlayer() {
+Player* WorldState::getPlayer() {
 	return player;
 }
 
-vector<Enemy> WorldState::getEnemies() {
+vector<Enemy*> WorldState::getEnemies() {
 	return enemies;
 }
 
-vector<Potion> WorldState::getPotions() {
+vector<Potion*> WorldState::getPotions() {
 	return potions;
-}
+} 

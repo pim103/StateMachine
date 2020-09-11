@@ -3,14 +3,14 @@
 Action::Action() {
 
 }
-Action::Action(int nId, Effect nEffect, vector<Precondition> nPreconditions, int nAmount) {
+
+Action::Action(int nId, Effect nEffect, vector<Precondition*> nPreconditions) {
 	id = nId;
 	effect = nEffect;
 	preconditions = nPreconditions;
-	amount = nAmount;
 }
 
-vector<Precondition> Action::getPreconditions() {
+vector<Precondition*> Action::getPreconditions() {
 	return preconditions;
 }
 

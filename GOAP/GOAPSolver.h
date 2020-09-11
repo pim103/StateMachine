@@ -5,12 +5,12 @@ class GOAPSolver
 {
 private:
 	WorldState worldState;
-	vector<Action> possibleActions;
-	Action topGoal;
-	Action currentGoal;
+	vector<Action*> possibleActions;
+	Action* topGoal;
+	Action* currentGoal;
 public:
 	GOAPSolver(WorldState nWorldState);
-	vector<Precondition> checkPreconditions(Action action);
+	vector<Precondition*> checkPreconditions(Action* action);
 	void solve();
 };
 
