@@ -4,21 +4,24 @@ Precondition::Precondition() {
 
 }
 
-Precondition::Precondition(PreconditionType type, int id, int nAmount) {
+Precondition::Precondition(PreconditionType type, int nAmount, vector<int> ids) {
 	preconType = type;
-	actionId = id;
+	actionIds = ids;
 	amount = nAmount;
 }
 
-int Precondition::getActionId() {
-	return actionId;
+vector<int> Precondition::getActionId() {
+	return actionIds;
 }
+
 PreconditionType Precondition::getType() {
 	return preconType;
 }
-void Precondition::setActionId(int id) {
-	actionId = id;
+
+void Precondition::setActionIds(vector<int> ids) {
+	actionIds = ids;
 }
+
 int Precondition::getAmount() {
 	return amount;
 }

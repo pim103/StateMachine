@@ -4,7 +4,9 @@
 GOAPSolver::GOAPSolver(WorldState nWorldState) {
 	worldState = nWorldState;
 
-	Precondition* preconditionDrinkPotion = new Precondition(PreconditionType::HAS_POTION, 1, 1);
+	Precondition* preconditionDrinkPotion = new Precondition(PreconditionType::HAS_POTION, 1, //ACTION IDs);
+	Precondition* preconditionBasicAttack = new Precondition(PreconditionType::IS_IN_RANGE, 2, //ACTION IDs);
+	Precondition* preconditionSpell = new Precondition(PreconditionType::IS_IN_RANGE, 3, //ACTION IDs REQUIRE);
 }
 
 void GOAPSolver::solve() {

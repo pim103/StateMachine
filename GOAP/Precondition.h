@@ -1,5 +1,10 @@
 #pragma once
 
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
 enum PreconditionType {
 	HAS_MANA,
 	HAS_POTION,
@@ -10,14 +15,14 @@ class Precondition
 {
 private:
 	PreconditionType preconType;
-	int actionId;
+	vector<int> actionIds;
 	int amount;
 public:
 	Precondition();
-	Precondition(PreconditionType type, int id, int nAmount);
-	int getActionId();
+	Precondition(PreconditionType type, int nAmount, vector<int> ids);
+	vector<int> getActionId();
 	PreconditionType getType();
 	int getAmount();
-	void setActionId(int id);
+	void setActionIds(vector<int> ids);
 };
 
