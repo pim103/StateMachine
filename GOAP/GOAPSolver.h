@@ -21,7 +21,7 @@ public:
 
 	vector<const Action*> findActionToFillPrecondition(const Precondition* precondition) const;
 
-	NodeParser* getCostAction(const Action* action) const;
+	NodeParser* getNodeParserForAction(const Action* action) const;
 	vector<const Precondition*> getUnvalidPreconditions(const Action* action) const;
 	vector<const Action*> solve();
 	const Action* getActionById(int id) const;

@@ -10,7 +10,8 @@ enum PreconditionType {
 	HAS_MANA,
 	HAS_POTION,
 	IS_IN_RANGE_ENEMY,
-	IS_IN_RANGE_POTION
+	IS_IN_RANGE_POTION,
+	ENEMY_AT_ZERO_HP
 };
 
 class Precondition

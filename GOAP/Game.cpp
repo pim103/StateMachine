@@ -11,6 +11,14 @@ void Game::runGame() {
 
 	while (enemies.size() > 0)
 	{
+		//enemies = worldState->getEnemies();
+
+		Enemy* currentEnemy = enemies[0];
+		int enemiesSize = enemies.size();
+		for (int i = 0; i < enemiesSize; ++i) {
+			cout << enemies[i]->getHp() << endl;
+		}
+		cout << enemies.size() << endl;
 		int actionsSequenceSize = actionsSequence.size();
 		bool shouldBreak = false;
 
@@ -35,6 +43,7 @@ void Game::runGame() {
 			else
 			{
 				if (goapSolver.getUnvalidPreconditions(actionsSequence[i]).size() == 0) {
+					cout << "achever last" << endl;
 					actionsSequence[i]->getEffect()->execute(worldState);
 				}
 				else {
