@@ -10,14 +10,14 @@ Precondition::Precondition(PreconditionType type, int nAmount, EffectType neffec
 	effectTypeToResolveThis = neffectTypeToResolveThis;
 }
 
-EffectType Precondition::getEffectTypeToResolveThis() {
+EffectType Precondition::getEffectTypeToResolveThis() const {
 	return effectTypeToResolveThis;
 }
 
-PreconditionType Precondition::getType() {
+PreconditionType Precondition::getType() const {
 	return preconType;
 }
 
-int Precondition::getAmount() {
+int Precondition::getAmount() const {
 	return amount;
 }

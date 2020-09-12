@@ -17,15 +17,15 @@ NodeParser::~NodeParser() {
 	}
 }
 
-int NodeParser::getCost() {
+int NodeParser::getCost() const {
 	return cost;
 }
 
-Action* NodeParser::getAction() {
+Action* NodeParser::getAction() const {
 	return action;
 }
 
-vector<NodeParser*> NodeParser::getPrevNodeParser() {
+vector<NodeParser*> NodeParser::getPrevNodeParser() const {
 	return prevNodeParse;
 }
 

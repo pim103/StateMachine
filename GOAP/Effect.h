@@ -21,9 +21,10 @@ private:
 public:
 	Effect();
 	Effect(EffectType nEffectType, int nAmount, function<void(WorldState*)> nCallback);
-	EffectType getEffectType();
-	Effect (function<void(WorldState*)> f) : callback(f) {}
+	Effect(function<void(WorldState*)> f) : callback(f) {}
+
+	EffectType getEffectType() const;
 	void execute(WorldState* worldState);
-	int getAmount();
+	int getAmount() const;
 };
 

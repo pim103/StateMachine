@@ -231,7 +231,7 @@ vector<Action*> GOAPSolver::solve() {
 	return way;
 }
 
-vector<Action*> GOAPSolver::findActionToFillPrecondition(Precondition* const precondition) {
+vector<Action*> GOAPSolver::findActionToFillPrecondition(Precondition* const precondition) const {
 	int possibleActionSize = possibleActions.size();
 	vector<Action*> actionsFound;
 
@@ -244,7 +244,7 @@ vector<Action*> GOAPSolver::findActionToFillPrecondition(Precondition* const pre
 	return actionsFound;
 }
 
-NodeParser* GOAPSolver::getCostAction(Action* action) {
+NodeParser* GOAPSolver::getCostAction(Action* action) const {
 	NodeParser* newNode = new NodeParser(action, action->getCost());
 
 	// Je veux r�cup�rer pour cette action les pr�conditions qui ne sont pas remplis
@@ -295,7 +295,7 @@ NodeParser* GOAPSolver::getCostAction(Action* action) {
 	return newNode;
 }
 
-vector<Precondition*> GOAPSolver::getUnvalidPreconditions(Action* action) {
+vector<Precondition*> GOAPSolver::getUnvalidPreconditions(Action* action) const {
 	cout << " Action Id " << action->getId() << endl;
 
 	vector<Precondition*> preconditionsList = action->getPreconditions();
@@ -356,7 +356,7 @@ vector<Precondition*> GOAPSolver::getUnvalidPreconditions(Action* action) {
 	return preconditionsToFill;
 }
 
-Action* GOAPSolver::getActionById(int id) {
+Action* GOAPSolver::getActionById(int id) const {
 	int possibleActionSize = possibleActions.size();
 	
 	for (int i = 0; i < possibleActionSize; ++i) {

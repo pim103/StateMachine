@@ -8,10 +8,10 @@ Effect::Effect(EffectType nEffectType, int nAmount, function<void(WorldState*)> 
 	amount = nAmount;
 	callback = nCallback;
 }
-EffectType Effect::getEffectType() {
+EffectType Effect::getEffectType() const {
 	return effectType;
 }
-int Effect::getAmount() {
+int Effect::getAmount() const {
 	return amount;
 }
 

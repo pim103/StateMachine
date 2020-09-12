@@ -12,11 +12,11 @@ void Player::setPotions(int _potions) {
 	potions = _potions;
 }
 
-int Player::getPotions() {
+int Player::getPotions() const {
 	return potions;
 }
 
-int Player::getMana() {
+int Player::getMana() const {
 	return currentMana;
 }
 
@@ -29,6 +29,6 @@ void Player::setPos(int nposX, int nposY) {
 	pos[1] = nposY;
 }
 
-vector<int> Player::getPos() {
+vector<int> Player::getPos() const {
 	return pos;
 }

@@ -8,9 +8,9 @@ public:
 	NodeParser(Action* action, int cost);
 	~NodeParser();
 
-	int getCost();
-	Action* getAction();
-	vector<NodeParser*> getPrevNodeParser();
+	int getCost() const;
+	Action* getAction() const;
+	vector<NodeParser*> getPrevNodeParser() const;
 
 	void setCost(int cost);
 	void setAction(Action* action);

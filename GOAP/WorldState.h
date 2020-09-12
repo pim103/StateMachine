@@ -14,9 +14,9 @@ private:
 	vector<Potion*> potions;
 public:
 	WorldState();
-	Player* getPlayer();
-	vector<Enemy*> getEnemies();
-	vector<Potion*> getPotions();
+	Player* getPlayer() const;
+	vector<Enemy*> getEnemies() const;
+	vector<Potion*> getPotions() const;
 
 	void deleteWorld();
 };

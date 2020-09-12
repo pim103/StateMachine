@@ -19,12 +19,12 @@ public:
 	GOAPSolver();
 	GOAPSolver(WorldState* nWorldState);
 
-	vector<Action*> findActionToFillPrecondition(Precondition* const precondition);
+	vector<Action*> findActionToFillPrecondition(Precondition* const precondition) const;
 
-	NodeParser* getCostAction(Action* action);
-	vector<Precondition*> getUnvalidPreconditions(Action* action);
+	NodeParser* getCostAction(Action* action) const;
+	vector<Precondition*> getUnvalidPreconditions(Action* action) const;
 	vector<Action*> solve();
-	Action* getActionById(int id);
+	Action* getActionById(int id) const;
 
 	void deleteGoap();
 };

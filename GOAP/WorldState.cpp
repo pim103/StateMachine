@@ -56,15 +56,15 @@ WorldState::WorldState() {
 	}
 }
 
-Player* WorldState::getPlayer() {
+Player* WorldState::getPlayer() const {
 	return player;
 }
 
-vector<Enemy*> WorldState::getEnemies() {
+vector<Enemy*> WorldState::getEnemies() const {
 	return enemies;
 }
 
-vector<Potion*> WorldState::getPotions() {
+vector<Potion*> WorldState::getPotions() const {
 	return potions;
 }
 

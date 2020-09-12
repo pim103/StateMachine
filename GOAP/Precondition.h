@@ -23,8 +23,8 @@ private:
 public:
 	Precondition();
 	Precondition(PreconditionType type, int nAmount, EffectType neffectTypeToResolveThis);
-	EffectType getEffectTypeToResolveThis();
-	PreconditionType getType();
-	int getAmount();
+	EffectType getEffectTypeToResolveThis() const;
+	PreconditionType getType() const;
+	int getAmount() const;
 };
 

@@ -10,7 +10,7 @@ private:
 	vector<int> pos;
 public:
 	Potion(int posX, int posY);
-	vector<int> getPos();
+	vector<int> getPos() const;
 	void setPos(int posX, int posY);
 };
 

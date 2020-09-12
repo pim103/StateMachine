@@ -11,9 +11,9 @@ private:
 	vector<int> pos;
 public:
 	Enemy(int posX, int posY);
-	int getHp();
+	int getHp() const;
 	void setHp(int nHp);
-	vector<int> getPos();
+	vector<int> getPos() const;
 	void setPos(int nposX, int nposY);
 };
 

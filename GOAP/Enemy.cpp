@@ -7,7 +7,7 @@ Enemy::Enemy(int posX, int posY) {
 	pos.push_back(posY);
 }
 
-int Enemy::getHp() {
+int Enemy::getHp() const {
 	return hp;
 }
 
@@ -20,6 +20,6 @@ void Enemy::setPos(int nposX, int nposY) {
 	pos[1] = nposY;
 }
 
-vector<int> Enemy::getPos() {
+vector<int> Enemy::getPos() const {
 	return pos;
 }

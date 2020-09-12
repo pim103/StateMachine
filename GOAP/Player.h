@@ -13,11 +13,11 @@ private:
 	vector<int> pos;
 public:
 	Player();
-	int getMana();
+	int getMana() const;
 	void setMana(int mana);
 	void setPotions(int _potions);
-	int getPotions();
-	vector<int> getPos();
+	int getPotions() const;
+	vector<int> getPos() const;
 	void setPos(int nposX, int nposY);
 
 

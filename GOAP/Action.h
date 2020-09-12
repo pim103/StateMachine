@@ -17,11 +17,11 @@ private:
 public:
 	Action();
 	Action(int nId, Effect* nEffect, int _cost, vector<Precondition*> nPreconditions, string desc);
-	vector<Precondition*> getPreconditions();
-	Effect* getEffect();
-	int getId();
-	int getCost();
+	vector<Precondition*> getPreconditions() const;
+	Effect* getEffect() const;
+	int getId() const;
+	int getCost() const;
 	void setCost(int nCost);
-	string getDescription();
+	string getDescription() const;
 };
 

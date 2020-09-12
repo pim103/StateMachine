@@ -10,6 +10,6 @@ void Potion::setPos(int nposX, int nposY) {
 	pos[1] = nposY;
 }
 
-vector<int> Potion::getPos() {
+vector<int> Potion::getPos() const {
 	return pos;
 }
