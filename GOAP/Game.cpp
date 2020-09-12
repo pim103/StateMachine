@@ -4,14 +4,16 @@ Game::Game() {
 	worldState = new WorldState();
 	goapSolver = GOAPSolver(worldState);
 }
+
 void Game::runGame() {
-	vector<Enemy*> enemies = worldState->getEnemies();
-	vector<Action*> actionsSequence = goapSolver.solve();
+	const vector<Enemy*> enemies = worldState->getEnemies();
+	vector<const Action*> actionsSequence = goapSolver.solve();
 
 	while (enemies.size() > 0)
 	{
 		int actionsSequenceSize = actionsSequence.size();
 		bool shouldBreak = false;
+
 		for (int i = 0; i < actionsSequenceSize; ++i) {
 			if (i < actionsSequenceSize - 1) {
 				while (goapSolver.getUnvalidPreconditions(actionsSequence[i + 1]).size() != 0) {

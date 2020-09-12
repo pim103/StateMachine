@@ -4,21 +4,20 @@
 
 class NodeParser {
 public:
-	NodeParser();
-	NodeParser(Action* action, int cost);
+	NodeParser(const Action* action, int cost);
 	~NodeParser();
 
 	int getCost() const;
-	Action* getAction() const;
+	const Action* getAction() const;
 	vector<NodeParser*> getPrevNodeParser() const;
 
 	void setCost(int cost);
 	void setAction(Action* action);
 	void addNodeParser(NodeParser* node);
 
-	vector<Action*> createWay();
+	vector<const Action*> createWay();
 private:
 	int cost;
-	Action* action;
+	const Action* action;
 	vector<NodeParser*> prevNodeParse;
 };

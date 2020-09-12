@@ -1,11 +1,6 @@
 #include "NodeParser.h"
 
-NodeParser::NodeParser() {
-	cost = 0;
-	action = nullptr;
-}
-
-NodeParser::NodeParser(Action* _action, int _cost): action(_action), cost(_cost) {
+NodeParser::NodeParser(const Action* _action, int _cost): action(_action), cost(_cost) {
 
 }
 
@@ -21,7 +16,7 @@ int NodeParser::getCost() const {
 	return cost;
 }
 
-Action* NodeParser::getAction() const {
+const Action* NodeParser::getAction() const {
 	return action;
 }
 
@@ -41,9 +36,9 @@ void NodeParser::addNodeParser(NodeParser* newNode) {
 	prevNodeParse.push_back(newNode);
 }
 
-vector<Action*> NodeParser::createWay() {
-	vector<Action*> way;
-	vector<Action*> tempWay;
+vector<const Action*> NodeParser::createWay() {
+	vector<const Action*> way;
+	vector<const Action*> tempWay;
 
 	int prevNodeSize = prevNodeParse.size();
 

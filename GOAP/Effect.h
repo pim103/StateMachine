@@ -24,7 +24,7 @@ public:
 	Effect(function<void(WorldState*)> f) : callback(f) {}
 
 	EffectType getEffectType() const;
-	void execute(WorldState* worldState);
+	void execute(WorldState* worldState) const;
 	int getAmount() const;
 };
 

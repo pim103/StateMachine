@@ -4,7 +4,7 @@ Action::Action() {
 
 }
 
-Action::Action(int nId, Effect* nEffect, int _cost, vector<Precondition*> nPreconditions, string desc) {
+Action::Action(int nId, const Effect* nEffect, int _cost, vector<const Precondition*> nPreconditions, string desc) {
 	id = nId;
 	effect = nEffect;
 	cost = _cost;
@@ -12,11 +12,11 @@ Action::Action(int nId, Effect* nEffect, int _cost, vector<Precondition*> nPreco
 	description = desc;
 }
 
-vector<Precondition*> Action::getPreconditions() const {
+vector<const Precondition*> Action::getPreconditions() const {
 	return preconditions;
 }
 
-Effect* Action::getEffect() const {
+const Effect* Action::getEffect() const {
 	return effect;
 }
 

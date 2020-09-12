@@ -15,7 +15,7 @@ int Effect::getAmount() const {
 	return amount;
 }
 
-void Effect::execute(WorldState* worldState) {
+void Effect::execute(WorldState* worldState) const {
 	if (callback != nullptr) {
 		callback(worldState);
 	}

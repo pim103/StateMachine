@@ -8,17 +8,17 @@ using namespace std;
 class Action
 {
 private:
-	Effect* effect;
-	vector<Precondition*> preconditions;
+	const Effect* effect;
+	vector<const Precondition*> preconditions;
 	int id;
 	int cost;
 	string description;
 
 public:
 	Action();
-	Action(int nId, Effect* nEffect, int _cost, vector<Precondition*> nPreconditions, string desc);
-	vector<Precondition*> getPreconditions() const;
-	Effect* getEffect() const;
+	Action(int nId, const Effect* nEffect, int _cost, vector<const Precondition*> nPreconditions, string desc);
+	vector<const Precondition*> getPreconditions() const;
+	const Effect* getEffect() const;
 	int getId() const;
 	int getCost() const;
 	void setCost(int nCost);
