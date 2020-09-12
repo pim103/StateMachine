@@ -2,7 +2,7 @@
 
 Player::Player() {
 	maxMana = 20;
-	currentMana = 20;
+	currentMana = 10;
 	pos.push_back(0);
 	pos.push_back(0);
 	potions = 1;

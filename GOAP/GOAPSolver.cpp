@@ -8,7 +8,6 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 
 	// =================== INIT EFFECTS =================== //
 	const Effect* enemyDies = new Effect(EffectType::KILL_ENEMY, 1, [](WorldState* worldState) {
-		cout << "called enemydies" << endl;
 		vector<Enemy*> enemies = worldState->getEnemies();
 		Player* player = worldState->getPlayer();
 		int enemiesSize = enemies.size();
@@ -17,7 +16,6 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 
 		for (int i = 0; i < enemiesSize; ++i) {
 			if (enemies[i]->getHp() <= 0) {
-				cout << "enemy dead" << endl;
 				currentEnemy = enemies[i];
 				enemies.erase(enemies.begin()+i);
 				delete currentEnemy;
@@ -113,23 +111,16 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 		vector<int> enemyPos = currentEnemy->getPos();
 		vector<int> playerPos = player->getPos();
 
-		cout << enemyPos[0] << " " << enemyPos[1] << endl;
-		cout << playerPos[0] << " " << playerPos[1] << endl;
-
 		if (enemyPos[0] < playerPos[0]) {
-			cout << "x - 1" << endl;
 			player->setPos(playerPos[0] - 1, playerPos[1]);
 		}
 		else if (enemyPos[0] > playerPos[0]) {
-			cout << "x + 1" << endl;
 			player->setPos(playerPos[0] + 1, playerPos[1]);
 		} 
 		else if (enemyPos[1] < playerPos[1]) {
-			cout << "y - 1" << endl;
 			player->setPos(playerPos[0], playerPos[1] - 1);
 		}
 		else if (enemyPos[1] > playerPos[1]) {
-			cout << "y + 1" << endl;
 			player->setPos(playerPos[0], playerPos[1] + 1);
 		}
 
