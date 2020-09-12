@@ -17,5 +17,7 @@ public:
 	Player* getPlayer();
 	vector<Enemy*> getEnemies();
 	vector<Potion*> getPotions();
+
+	void deleteWorld();
 };
 

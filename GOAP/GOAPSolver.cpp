@@ -133,18 +133,34 @@ GOAPSolver::GOAPSolver(WorldState nWorldState) {
 		}
 	});
 
+	effects.push_back(attackDamages);
+	effects.push_back(spellDamages);
+	effects.push_back(getPotion);
+	effects.push_back(getManaWithPotion);
+	effects.push_back(getManaWithRegen);
+	effects.push_back(moveTowardsClosestEnemy);
+	effects.push_back(moveTowardsClosestPotion);
+
 	vector<Enemy*> enemies = worldState.getEnemies();
 	Enemy* currentEnemy = enemies[0];
 	int enemiesSize = enemies.size();
 	for (int i = 0; i < enemiesSize; ++i) {
 		cout << enemies[i]->getHp();
 	}
+
 	// ================ INIT PRECONDITION ================ //
+
 	Precondition* preconditionDrinkPotion = new Precondition(PreconditionType::HAS_POTION, 1, EffectType::GET_POTION);
 	Precondition* preconditionBasicAttack = new Precondition(PreconditionType::IS_IN_RANGE_ENEMY, 2, EffectType::MOVE_TOWARDS_ENEMY);
 	Precondition* preconditionSpell = new Precondition(PreconditionType::IS_IN_RANGE_ENEMY, 3, EffectType::MOVE_TOWARDS_ENEMY);
 	Precondition* preconditionSpell2 = new Precondition(PreconditionType::HAS_MANA, 2, EffectType::GET_MANA);
 	Precondition* preconditionGetAPotion = new Precondition(PreconditionType::IS_IN_RANGE_POTION, 1, EffectType::MOVE_TOWARDS_POTION);
+
+	preconditions.push_back(preconditionDrinkPotion);
+	preconditions.push_back(preconditionBasicAttack);
+	preconditions.push_back(preconditionSpell);
+	preconditions.push_back(preconditionSpell2);
+	preconditions.push_back(preconditionGetAPotion);
 
 	// ================ INIT ACTIONS ================ //
 
@@ -186,23 +202,6 @@ GOAPSolver::GOAPSolver(WorldState nWorldState) {
 	possibleActions.push_back(regenMan);
 }
 
-vector<Action*> ParseNode(NodeParser* const node) {
-	vector<Action*> way;
-	vector<Action*> tempWay;
-
-	for (int i = 0; i < node->prevNodeParse.size(); ++i) {
-		tempWay = ParseNode(node->prevNodeParse[i]);
-
-		for (int j = 0; j < tempWay.size(); ++j) {
-			way.push_back(tempWay[j]);
-		}
-	}
-
-	way.push_back(node->action);
-
-	return way;
-}
-
 void printWay(vector<Action*> way) {
 	for (int i = 0; i < way.size(); ++i) {
 		cout << way[i]->getDescription() << endl;
@@ -217,31 +216,15 @@ void GOAPSolver::solve() {
 	player->setMana(0);
 	player->setPotions(0);
 
-	worldState.getPotions()[0]->setPos(0, 0);
+	//worldState.getPotions()[0]->setPos(0, 0);
 
 	NodeParser* node = getCostAction(getActionById(2));
 	cout << " Pour executer : " << getActionById(2)->getDescription() << " il faudra " << endl;
 
-	vector<Action*> way = ParseNode(node);
+	vector<Action*> way = node->createWay();
 	printWay(way);
 
-	//return;
-	//while (enemies.size() > 0) {
-	//	firstUnvalidPrecondition = getFirstUnvalidPrecondition(currentGoal);
-
-	//	if (firstUnvalidPrecondition != nullptr) {
-	//		vector<int> actionIds = firstUnvalidPrecondition->getActionIds();
-	//		int actionIdsSize = actionIds.size();
-
-	//		for (int i = 0; i < actionIdsSize; ++i) {
-	//			currentGoal = possibleActions[i];
-	//		}
-	//	}
-	//	else {
-	//		currentGoal->executeAction();
-	//		currentGoal = topGoal;
-	//	}
-	//}
+	delete node;
 }
 
 vector<Action*> GOAPSolver::findActionToFillPrecondition(Precondition* const precondition) {
@@ -258,9 +241,7 @@ vector<Action*> GOAPSolver::findActionToFillPrecondition(Precondition* const pre
 }
 
 NodeParser* GOAPSolver::getCostAction(Action* action) {
-	NodeParser* newNode = new NodeParser();
-	newNode->action = action;
-	newNode->cost = action->getCost();
+	NodeParser* newNode = new NodeParser(action, action->getCost());
 
 	// Je veux r�cup�rer pour cette action les pr�conditions qui ne sont pas remplis
 	// Si il n'y en a pas, je renvoie le nodeParser avec une seule action a faire
@@ -286,14 +267,23 @@ NodeParser* GOAPSolver::getCostAction(Action* action) {
 
 				possibleNodeParserToFillPrecondition = getCostAction(actionParsed);
 
-				if (savedNodeParserToFillPrecondition == nullptr || savedNodeParserToFillPrecondition->cost > possibleNodeParserToFillPrecondition->cost) {
+				if (savedNodeParserToFillPrecondition == nullptr || savedNodeParserToFillPrecondition->getCost() > possibleNodeParserToFillPrecondition->getCost()) {
+					if (savedNodeParserToFillPrecondition != nullptr) {
+						// Delete old savedNode
+						delete savedNodeParserToFillPrecondition;
+					}
+					
 					savedNodeParserToFillPrecondition = possibleNodeParserToFillPrecondition;
+				}
+				else {
+					// Delete possible node not saved
+					delete possibleNodeParserToFillPrecondition;
 				}
 			}
 
 			if (savedNodeParserToFillPrecondition != nullptr) {
-				newNode->cost += savedNodeParserToFillPrecondition->cost;
-				newNode->prevNodeParse.push_back(savedNodeParserToFillPrecondition);
+				newNode->setCost(newNode->getCost() +savedNodeParserToFillPrecondition->getCost());
+				newNode->addNodeParser(savedNodeParserToFillPrecondition);
 			}
 		}
 	}
@@ -372,4 +362,22 @@ Action* GOAPSolver::getActionById(int id) {
 	}
 
 	return nullptr;
+}
+
+void GOAPSolver::deleteGoap() {
+	int preconditionSize = preconditions.size();
+	int effectsSize = effects.size();
+	int actionSize = possibleActions.size();
+
+	for (int i = 0; i < preconditionSize; ++i) {
+		delete preconditions[i];
+	}
+
+	for (int i = 0; i < effectsSize; ++i) {
+		delete effects[i];
+	}
+
+	for (int i = 0; i < actionSize; ++i) {
+		delete possibleActions[i];
+	}
 }

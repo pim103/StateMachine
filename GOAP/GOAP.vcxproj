@@ -157,6 +157,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GOAP.cpp" />
     <ClCompile Include="GOAPSolver.cpp" />
+    <ClCompile Include="NodeParser.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Potion.cpp" />
     <ClCompile Include="Precondition.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GOAPSolver.h" />
+    <ClInclude Include="NodeParser.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Potion.h" />
     <ClInclude Include="Precondition.h" />

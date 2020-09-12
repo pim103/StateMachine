@@ -9,6 +9,10 @@ void Game::runGame() {
 	vector<Action*> actionsSequence;
 
 	goapSolver.solve();
+
+	worldState.deleteWorld();
+	goapSolver.deleteGoap();
+
 	return;
 	while (enemies.size() > 0)
 	{

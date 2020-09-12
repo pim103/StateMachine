@@ -67,3 +67,18 @@ vector<Enemy*> WorldState::getEnemies() {
 vector<Potion*> WorldState::getPotions() {
 	return potions;
 }
+
+void WorldState::deleteWorld() {
+	int enemiesSize = enemies.size();
+	int potionSize = potions.size();
+
+	for (int i = 0; i < enemiesSize; ++i) {
+		delete enemies[i];
+	}
+
+	for (int i = 0; i < potionSize; ++i) {
+		delete potions[i];
+	}
+
+	delete player;
+}

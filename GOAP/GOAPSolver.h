@@ -3,20 +3,17 @@
 #include <map>
 
 #include "WorldState.h"
-#include "Action.h"
-
-class NodeParser {
-public:
-	int cost;
-	Action* action;
-	vector<NodeParser*> prevNodeParse;
-};
+#include "NodeParser.h"
 
 class GOAPSolver
 {
 private:
 	WorldState worldState;
+
 	vector<Action*> possibleActions;
+	vector<Precondition*> preconditions;
+	vector<Effect*> effects;
+
 	Action* topGoal;
 	Action* currentGoal;
 public:
@@ -29,4 +26,6 @@ public:
 	vector<Precondition*> getUnvalidPreconditions(Action* action);
 	void solve();
 	Action* getActionById(int id);
+
+	void deleteGoap();
 };
