@@ -113,6 +113,9 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 		vector<int> enemyPos = currentEnemy->getPos();
 		vector<int> playerPos = player->getPos();
 
+		cout << enemyPos[0] << " " << enemyPos[1] << endl;
+		cout << playerPos[0] << " " << playerPos[1] << endl;
+
 		if (enemyPos[0] < playerPos[0]) {
 			cout << "x - 1" << endl;
 			player->setPos(playerPos[0] - 1, playerPos[1]);
@@ -343,7 +346,7 @@ vector<const Precondition*> GOAPSolver::getUnvalidPreconditions(const Action* ac
 		{
 		case IS_IN_RANGE_ENEMY:
 			for (int j = 0; j < enemies.size(); ++j) {
-				if (sqrt(pow((player->getPos()[0] - enemies[i]->getPos()[0]), 2) + pow((player->getPos()[1] - enemies[i]->getPos()[1]), 2)) <= preconditionsList[i]->getAmount()) {
+				if (sqrt(pow((player->getPos()[0] - enemies[j]->getPos()[0]), 2) + pow((player->getPos()[1] - enemies[j]->getPos()[1]), 2)) <= preconditionsList[i]->getAmount()) {
 					hasEnemyInRange = true;
 				}
 			}
@@ -354,7 +357,7 @@ vector<const Precondition*> GOAPSolver::getUnvalidPreconditions(const Action* ac
 			break;
 		case IS_IN_RANGE_POTION:
 			for (int j = 0; j < potions.size(); ++j) {
-				if (sqrt(pow((player->getPos()[0] - potions[i]->getPos()[0]), 2) + pow((player->getPos()[1] - potions[i]->getPos()[1]), 2)) <= preconditionsList[i]->getAmount()) {
+				if (sqrt(pow((player->getPos()[0] - potions[j]->getPos()[0]), 2) + pow((player->getPos()[1] - potions[j]->getPos()[1]), 2)) <= preconditionsList[i]->getAmount()) {
 					hasPotionInRange = true;
 				}
 			}

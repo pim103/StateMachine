@@ -26,7 +26,6 @@ void Game::runGame() {
 				while (goapSolver.getUnvalidPreconditions(actionsSequence[i + 1]).size() != 0 && nbLoop2 < 25) {
 					++nbLoop2;
 					if (goapSolver.getUnvalidPreconditions(actionsSequence[i]).size() == 0) {
-						cout << "Notre position : " << worldState->getPlayer()->getPos()[0] << " " << worldState->getPlayer()->getPos()[1] << endl;
 						actionsSequence[i]->getEffect()->execute(worldState);
 						cout << "action done : " << actionsSequence[i]->getDescription() << endl;
 					}
@@ -44,7 +43,6 @@ void Game::runGame() {
 			else
 			{
 				if (goapSolver.getUnvalidPreconditions(actionsSequence[i]).size() == 0) {
-					cout << "achever last" << endl;
 					actionsSequence[i]->getEffect()->execute(worldState);
 				}
 
