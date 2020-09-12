@@ -10,7 +10,7 @@ void Game::runGame() {
 	vector<const Action*> actionsSequence = goapSolver.solve();
 	int nbLoop = 0;
 
-	while (enemies.size() > 0 && nbLoop < 50)
+	while (worldState->getEnemies().size() > 0 && nbLoop < 50)
 	{
 		++nbLoop;
 
@@ -52,6 +52,8 @@ void Game::runGame() {
 	}
 
 	worldState->deleteWorld();
+
 	goapSolver.deleteGoap();
+
 	delete worldState;
 }
