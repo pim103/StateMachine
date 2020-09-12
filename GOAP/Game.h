@@ -5,7 +5,7 @@ class Game
 {
 private:
 	GOAPSolver goapSolver;
-	WorldState worldState;
+	WorldState* worldState;
 public:
 	Game();
 	void runGame();

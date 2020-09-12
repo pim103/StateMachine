@@ -1,7 +1,7 @@
 #pragma once
 #include<iostream>
 #include<functional>
-
+#include "WorldState.h"
 using namespace std;
 
 enum EffectType {
@@ -17,13 +17,13 @@ class Effect
 private:
 	EffectType effectType;
 	int amount;
-	function<void(void)> callback;
+	function<void(WorldState*)> callback;
 public:
 	Effect();
-	Effect(EffectType nEffectType, int nAmount, function<void(void)> nCallback);
+	Effect(EffectType nEffectType, int nAmount, function<void(WorldState*)> nCallback);
 	EffectType getEffectType();
-	Effect (function<void(void)> f) : callback(f) {}
-	void execute();
+	Effect (function<void(WorldState*)> f) : callback(f) {}
+	void execute(WorldState* worldState);
 	int getAmount();
 };
 

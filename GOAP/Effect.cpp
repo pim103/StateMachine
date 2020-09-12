@@ -3,7 +3,7 @@
 Effect::Effect() {
 
 }
-Effect::Effect(EffectType nEffectType, int nAmount, function<void(void)> nCallback) {
+Effect::Effect(EffectType nEffectType, int nAmount, function<void(WorldState*)> nCallback) {
 	effectType = nEffectType;
 	amount = nAmount;
 	callback = nCallback;
@@ -15,8 +15,8 @@ int Effect::getAmount() {
 	return amount;
 }
 
-void Effect::execute() {
+void Effect::execute(WorldState* worldState) {
 	if (callback != nullptr) {
-		callback();
+		callback(worldState);
 	}
 }

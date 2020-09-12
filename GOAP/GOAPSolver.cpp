@@ -3,14 +3,14 @@
 GOAPSolver::GOAPSolver() {
 
 }
-GOAPSolver::GOAPSolver(WorldState nWorldState) {
+GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 	worldState = nWorldState;
 
 	// =================== INIT EFFECTS =================== //
-	Effect* attackDamages = new Effect(EffectType::DO_DAMAGES, 1, [=]() {
+	Effect* attackDamages = new Effect(EffectType::DO_DAMAGES, 1, [](WorldState* worldState) {
 		cout << "oh yeah";
-		vector<Enemy*> enemies = worldState.getEnemies();
-		Player* player = worldState.getPlayer();
+		vector<Enemy*> enemies = worldState->getEnemies();
+		Player* player = worldState->getPlayer();
 		int enemiesSize = enemies.size();
 		int minDistance = 10000;
 		Enemy* currentEnemy = enemies[0];
@@ -27,9 +27,9 @@ GOAPSolver::GOAPSolver(WorldState nWorldState) {
 		}
 	});
 	
-	Effect* spellDamages = new Effect(EffectType::DO_DAMAGES, 4, [=]() {
-		vector<Enemy*> enemies = worldState.getEnemies();
-		Player* player = worldState.getPlayer();
+	Effect* spellDamages = new Effect(EffectType::DO_DAMAGES, 4, [](WorldState* worldState) {
+		vector<Enemy*> enemies = worldState->getEnemies();
+		Player* player = worldState->getPlayer();
 		int enemiesSize = enemies.size();
 		int minDistance = 10000;
 		Enemy* currentEnemy = enemies[0];
@@ -47,9 +47,9 @@ GOAPSolver::GOAPSolver(WorldState nWorldState) {
 		}
 	});
 	
-	Effect* getPotion = new Effect(EffectType::GET_POTION, 1, [=]() {
-		vector<Potion*> potions = worldState.getPotions();
-		Player* player = worldState.getPlayer();
+	Effect* getPotion = new Effect(EffectType::GET_POTION, 1, [](WorldState* worldState) {
+		vector<Potion*> potions = worldState->getPotions();
+		Player* player = worldState->getPlayer();
 		int potionsSize = potions.size();
 		int minDistance = 10000;
 		Potion* currentPotion = potions[0];
@@ -64,20 +64,20 @@ GOAPSolver::GOAPSolver(WorldState nWorldState) {
 		//remove potion
 	});
 	
-	Effect* getManaWithPotion = new Effect(EffectType::GET_MANA, 6, [=]() {
-		Player* player = worldState.getPlayer();
+	Effect* getManaWithPotion = new Effect(EffectType::GET_MANA, 6, [](WorldState* worldState) {
+		Player* player = worldState->getPlayer();
 		player->setPotions(player->getPotions() - 1);
 		player->setMana(player->getMana() + 6);
 	});
 	
-	Effect* getManaWithRegen = new Effect(EffectType::GET_MANA, 2, [=]() {
-		Player* player = worldState.getPlayer();
+	Effect* getManaWithRegen = new Effect(EffectType::GET_MANA, 2, [](WorldState* worldState) {
+		Player* player = worldState->getPlayer();
 		player->setMana(player->getMana() + 2);
 	});
 
-	Effect* moveTowardsClosestEnemy = new Effect(EffectType::MOVE_TOWARDS_ENEMY, 1, [=]() {
-		vector<Enemy*> enemies = worldState.getEnemies();
-		Player* player = worldState.getPlayer();
+	Effect* moveTowardsClosestEnemy = new Effect(EffectType::MOVE_TOWARDS_ENEMY, 1, [](WorldState* worldState) {
+		vector<Enemy*> enemies = worldState->getEnemies();
+		Player* player = worldState->getPlayer();
 		int enemiesSize = enemies.size();
 		int minDistance = 10000;
 		Enemy* currentEnemy = enemies[0];
@@ -104,9 +104,9 @@ GOAPSolver::GOAPSolver(WorldState nWorldState) {
 		}
 	});
 	
-	Effect* moveTowardsClosestPotion = new Effect(EffectType::MOVE_TOWARDS_POTION, 1, [=]() {
-		vector<Potion*> potions = worldState.getPotions();
-		Player* player = worldState.getPlayer();
+	Effect* moveTowardsClosestPotion = new Effect(EffectType::MOVE_TOWARDS_POTION, 1, [](WorldState* worldState) {
+		vector<Potion*> potions = worldState->getPotions();
+		Player* player = worldState->getPlayer();
 		int potionsSize = potions.size();
 		int minDistance = 10000;
 		Potion* currentPotion = potions[0];
@@ -133,6 +133,7 @@ GOAPSolver::GOAPSolver(WorldState nWorldState) {
 		}
 	});
 
+
 	effects.push_back(attackDamages);
 	effects.push_back(spellDamages);
 	effects.push_back(getPotion);
@@ -141,7 +142,8 @@ GOAPSolver::GOAPSolver(WorldState nWorldState) {
 	effects.push_back(moveTowardsClosestEnemy);
 	effects.push_back(moveTowardsClosestPotion);
 
-	vector<Enemy*> enemies = worldState.getEnemies();
+	vector<Enemy*> enemies = worldState->getEnemies();
+
 	Enemy* currentEnemy = enemies[0];
 	int enemiesSize = enemies.size();
 	for (int i = 0; i < enemiesSize; ++i) {
@@ -208,11 +210,11 @@ void printWay(vector<Action*> way) {
 	}
 }
 
-void GOAPSolver::solve() {
+vector<Action*> GOAPSolver::solve() {
 	//vector<Enemy*> enemies = worldState.getEnemies();
 	//Precondition* firstUnvalidPrecondition;
 
-	Player* player = worldState.getPlayer();
+	Player* player = worldState->getPlayer();
 	player->setMana(0);
 	player->setPotions(0);
 
@@ -225,6 +227,8 @@ void GOAPSolver::solve() {
 	printWay(way);
 
 	delete node;
+
+	return way;
 }
 
 vector<Action*> GOAPSolver::findActionToFillPrecondition(Precondition* const precondition) {
@@ -298,10 +302,10 @@ vector<Precondition*> GOAPSolver::getUnvalidPreconditions(Action* action) {
 	Effect* effect = action->getEffect();
 
 	int preconditionSize = preconditionsList.size();
-	Player* player = worldState.getPlayer();
+	Player* player = worldState->getPlayer();
 
-	vector<Enemy*> enemies = worldState.getEnemies();
-	vector<Potion*> potions = worldState.getPotions();
+	vector<Enemy*> enemies = worldState->getEnemies();
+	vector<Potion*> potions = worldState->getPotions();
 	
 	vector<Precondition*> preconditionsToFill;
 	int preconCpt = 0;

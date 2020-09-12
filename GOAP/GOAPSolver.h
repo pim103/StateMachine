@@ -8,8 +8,7 @@
 class GOAPSolver
 {
 private:
-	WorldState worldState;
-
+	WorldState* worldState;
 	vector<Action*> possibleActions;
 	vector<Precondition*> preconditions;
 	vector<Effect*> effects;
@@ -18,13 +17,13 @@ private:
 	Action* currentGoal;
 public:
 	GOAPSolver();
-	GOAPSolver(WorldState nWorldState);
+	GOAPSolver(WorldState* nWorldState);
 
 	vector<Action*> findActionToFillPrecondition(Precondition* const precondition);
 
 	NodeParser* getCostAction(Action* action);
 	vector<Precondition*> getUnvalidPreconditions(Action* action);
-	void solve();
+	vector<Action*> solve();
 	Action* getActionById(int id);
 
 	void deleteGoap();
