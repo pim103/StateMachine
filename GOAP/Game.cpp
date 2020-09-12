@@ -8,7 +8,6 @@ void Game::runGame() {
 	vector<Enemy*> enemies = worldState->getEnemies();
 	vector<Action*> actionsSequence = goapSolver.solve();
 
-
 	while (enemies.size() > 0)
 	{
 		int actionsSequenceSize = actionsSequence.size();
