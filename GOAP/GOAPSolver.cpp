@@ -14,6 +14,7 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 		int enemiesSize = enemies.size();
 		int minDistance = 10000;
 		Enemy* currentEnemy = enemies[0];
+
 		for (int i = 0; i < enemiesSize; ++i) {
 			if (enemies[i]->getHp() <= 0) {
 				cout << "enemy dead" << endl;
@@ -23,6 +24,8 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 				break;
 			}
 		}
+
+		worldState->setEnemies(enemies);
 	});
 	
 	const Effect* attackDamages = new Effect(EffectType::DO_DAMAGES, 1, [](WorldState* worldState) {
@@ -77,6 +80,9 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 		//remove potion
 		potions.erase(potions.begin() + currentPotionIndex);
 		delete currentPotion;
+
+		worldState->setPotions(potions);
+		worldState->setPlayer(player);
 	});
 	
 	const Effect* getManaWithPotion = new Effect(EffectType::GET_MANA, 6, [](WorldState* worldState) {
@@ -93,6 +99,7 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 	const Effect* moveTowardsClosestEnemy = new Effect(EffectType::MOVE_TOWARDS_ENEMY, 1, [](WorldState* worldState) {
 		vector<Enemy*> enemies = worldState->getEnemies();
 		Player* player = worldState->getPlayer();
+
 		int enemiesSize = enemies.size();
 		int minDistance = 10000;
 		Enemy* currentEnemy = enemies[0];
@@ -105,18 +112,25 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 		}
 		vector<int> enemyPos = currentEnemy->getPos();
 		vector<int> playerPos = player->getPos();
+
 		if (enemyPos[0] < playerPos[0]) {
+			cout << "x - 1" << endl;
 			player->setPos(playerPos[0] - 1, playerPos[1]);
 		}
 		else if (enemyPos[0] > playerPos[0]) {
+			cout << "x + 1" << endl;
 			player->setPos(playerPos[0] + 1, playerPos[1]);
 		} 
 		else if (enemyPos[1] < playerPos[1]) {
+			cout << "y - 1" << endl;
 			player->setPos(playerPos[0], playerPos[1] - 1);
 		}
-		else if (enemyPos[0] > playerPos[0]) {
+		else if (enemyPos[1] > playerPos[1]) {
+			cout << "y + 1" << endl;
 			player->setPos(playerPos[0], playerPos[1] + 1);
 		}
+
+		worldState->setPlayer(player);
 	});
 	
 	const Effect* moveTowardsClosestPotion = new Effect(EffectType::MOVE_TOWARDS_POTION, 1, [](WorldState* worldState) {
@@ -134,6 +148,7 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 		}
 		vector<int> potionPos = currentPotion->getPos();
 		vector<int> playerPos = player->getPos();
+
 		if (potionPos[0] < playerPos[0]) {
 			player->setPos(playerPos[0] - 1, playerPos[1]);
 		}
@@ -143,9 +158,11 @@ GOAPSolver::GOAPSolver(WorldState*nWorldState) {
 		else if (potionPos[1] < playerPos[1]) {
 			player->setPos(playerPos[0], playerPos[1] - 1);
 		}
-		else if (potionPos[0] > playerPos[0]) {
+		else if (potionPos[1] > playerPos[1]) {
 			player->setPos(playerPos[0], playerPos[1] + 1);
 		}
+
+		worldState->setPlayer(player);
 	});
 
 
@@ -227,15 +244,7 @@ void printWay(vector<const Action*> way) {
 }
 
 vector<const Action*> GOAPSolver::solve() {
-	//vector<Enemy*> enemies = worldState.getEnemies();
-	//Precondition* firstUnvalidPrecondition;
-
-	Player* player = worldState->getPlayer();
-	//player->setMana(0);
-	//player->setPotions(0);
-
-	//worldState.getPotions()[0]->setPos(0, 0);
-
+	// Find nodeParser for kill enemy
 	NodeParser* node = getNodeParserForAction(getActionById(8));
 	cout << " Pour executer : " << getActionById(8)->getDescription() << " il faudra " << endl;
 
@@ -365,16 +374,13 @@ vector<const Precondition*> GOAPSolver::getUnvalidPreconditions(const Action* ac
 			}
 			break;
 		case ENEMY_AT_ZERO_HP:
-			cout << "precon zero" << endl;
 			for (int j = 0; j < enemies.size(); ++j) {
-				cout << "precon zero" << enemies[i]->getHp() << endl;
-				if (enemies[i]->getHp() <= 0) {
+				if (enemies[j]->getHp() <= 0) {
 					hasEnemyAtZero = true;
 				}
 			}
 
 			if (!hasEnemyAtZero) {
-				cout << "precon zero not filled" << endl;
 				preconditionsToFill.push_back(preconditionsList[i]);
 			}
 			break;

@@ -18,6 +18,10 @@ public:
 	vector<Enemy*> getEnemies() const;
 	vector<Potion*> getPotions() const;
 
+	void setEnemies(vector<Enemy*> nEnemies);
+	void setPotions(vector<Potion*> nPotion);
+	void setPlayer(Player* nPlayer);
+
 	void deleteWorld();
 };
 

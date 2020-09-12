@@ -82,3 +82,15 @@ void WorldState::deleteWorld() {
 
 	delete player;
 }
+
+void WorldState::setEnemies(vector<Enemy*> nEnemies) {
+	enemies = nEnemies;
+}
+
+void WorldState::setPotions(vector<Potion*> nPotions) {
+	potions = nPotions;
+}
+
+void WorldState::setPlayer(Player* nPlayer) {
+	player = nPlayer;
+}
